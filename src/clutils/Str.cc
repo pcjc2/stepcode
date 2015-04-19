@@ -273,10 +273,12 @@ const char * PrettyTmpName( const char * oldname ) {
     int i = 0;
     static char newname [BUFSIZ];
     newname [0] = '\0';
-    while( ( oldname [i] != '\0' ) && ( i < BUFSIZ ) ) {
+    while( ( oldname [i] != '\0' ) && ( i < BUFSIZ - 1 ) ) {
         newname [i] = ToLower( oldname [i] );
         if( oldname [i] == '_' ) { /*  character is '_'   */
             ++i;
+            if (oldname [i] == '\0' || i >= BUFSIZ - 1)
+              break;
             newname [i] = ToUpper( oldname [i] );
         }
         if( oldname [i] != '\0' ) {
