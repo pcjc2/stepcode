@@ -266,7 +266,7 @@ std::string GetLiteralStr( istream & in, ErrorDescriptor * err ) {
 /**************************************************************//**
  ** \fn  PrettyTmpName (char * oldname)
  ** \returns  a new capitalized name in a static buffer
- ** Capitalizes first char of word, rest is lowercase. Removes '_'.
+ ** Capitalizes first char of word, rest is lowercase.
  ** Status:   OK  7-Oct-1992 kcm
  ******************************************************************/
 const char * PrettyTmpName( const char * oldname ) {
