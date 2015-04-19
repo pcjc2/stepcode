@@ -28,6 +28,7 @@ if(SC_PYTHON_GENERATOR)
     ../exp2cxx/trynext.cc
     ../exp2cxx/write.cc
     ../exp2cxx/print.cc
+    ../exp2cxx/Str.cc
    )
   SC_ADDEXEC(exp2python "${exp2python_SOURCES}" "express;base")
 

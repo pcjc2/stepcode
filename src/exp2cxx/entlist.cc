@@ -111,7 +111,7 @@ void SimpleList::unmarkAll( EntNode * ents )
         return;
     }
 
-    while( eptr != NULL && ( comp = strcmp( eptr->name, name ) ) < 0 ) {
+    while( eptr != NULL && ( comp = entity_name_cmp( eptr->name, name ) ) < 0 ) {
         eptr = eptr->next;
     }
     // (We assume we have a match now since viable >= MATCHSOME.)

@@ -112,7 +112,7 @@ void ComplexList::addChildren( EntList * ent )
         }
     } else {
         nm = ( dynamic_cast< SimpleList * >(ent) )->name;
-        while( prev != NULL && ( comp = strcmp( prev->name, nm ) ) < 0 ) {
+        while( prev != NULL && ( comp = entity_name_cmp( prev->name, nm ) ) < 0 ) {
             prev2 = prev;
             prev = prev->next;
         }

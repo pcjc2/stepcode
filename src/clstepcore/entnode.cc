@@ -32,7 +32,7 @@ EntNode::EntNode( const char ** names ) {
 
     while( names[j] && *names[j] != '*' ) {
         nm = names[j];
-        while( prev != NULL && ( comp = StrCmpIns( prev->name, nm ) ) < 0 ) {
+        while( prev != NULL && ( comp = entity_name_cmp( prev->name, nm ) ) < 0 ) {
             prev2 = prev;
             prev = prev->next;
         }

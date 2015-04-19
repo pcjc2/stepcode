@@ -42,7 +42,7 @@ EntNode::EntNode( char * namelist[] )
 
     while( *namelist[j] != '*' ) {
         nm = namelist[j];
-        while( prev != NULL && ( comp = strcmp( prev->name, nm ) ) < 0 ) {
+        while( prev != NULL && ( comp = entity_name_cmp( prev->name, nm ) ) < 0 ) {
             prev2 = prev;
             prev = prev->next;
         }

@@ -32,6 +32,7 @@ SC_UTILS_EXPORT const char * StrToLower( const char * word, std::string & s );
 SC_UTILS_EXPORT const char * StrToUpper( const char * word, std::string & s );
 SC_UTILS_EXPORT const char * StrToConstant( const char * word, std::string & s );
 SC_UTILS_EXPORT int          StrCmpIns( const char * str1, const char * str2 );
+SC_UTILS_EXPORT int          entity_name_cmp ( const char * str1, const char * str2 );
 SC_UTILS_EXPORT const char * PrettyTmpName( const char * oldname );
 SC_UTILS_EXPORT char    *    PrettyNewName( const char * oldname );
 SC_UTILS_EXPORT char    *    EntityClassName( char * oldname );

@@ -5,6 +5,8 @@
 #include <fstream>
 using namespace std;
 
+#include "../exp2cxx/Str.h"
+
 extern "C"
 {
 #include <string.h>
@@ -88,10 +90,10 @@ class EntNode {
             return ( strcmp( name, ent.name ) == 0 );
         }
         int operator< ( EntNode & ent ) {
-            return ( strcmp( name, ent.name ) < 0 );
+            return ( entity_name_cmp( name, ent.name ) < 0 );
         }
         int operator> ( EntNode & ent ) {
-            return ( strcmp( name, ent.name ) > 0 );
+            return ( entity_name_cmp( name, ent.name ) > 0 );
         }
         void setmark( MarkType stamp = MARK ) {
             mark = stamp;
@@ -353,10 +355,10 @@ class ComplexList {
         void buildList();
         void remove();
         int operator< ( ComplexList & c ) {
-            return ( strcmp( supertype(), c.supertype() ) < 0 );
+            return ( entity_name_cmp( supertype(), c.supertype() ) < 0 );
         }
         int operator< ( char * name ) {
-            return ( strcmp( supertype(), name ) < 0 );
+            return ( entity_name_cmp( supertype(), name ) < 0 );
         }
         int operator== ( char * name ) {
             return ( strcmp( supertype(), name ) == 0 );

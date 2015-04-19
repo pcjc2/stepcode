@@ -93,7 +93,7 @@ void SimpleList::unmarkAll( EntNode * ents ) {
         return;
     }
 
-    while( eptr != NULL && ( comp = strcmp( eptr->name, name ) ) < 0 ) {
+    while( eptr != NULL && ( comp = entity_name_cmp( eptr->name, name ) ) < 0 ) {
         eptr = eptr->next;
     }
     // (We assume we have a match now since viable >= MATCHSOME.)
@@ -117,7 +117,7 @@ bool SimpleList::acceptChoice( EntNode * ents ) {
     int comp;
 
     while( eptr != NULL ) {
-        if( ( comp = strcmp( name, eptr->name ) ) == 0 ) {
+        if( ( comp = entity_name_cmp( name, eptr->name ) ) == 0 ) {
             if( ! eptr->marked() ) {
                 eptr->setmark( ORMARK );
                 I_marked = ORMARK;

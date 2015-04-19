@@ -25,7 +25,7 @@ MatchType SimpleList::matchNonORs( EntNode * ents )
     int comp;
 
     while( eptr != NULL ) {
-        if( ( comp = strcmp( name, eptr->name ) ) == 0 ) {
+        if( ( comp = entity_name_cmp( name, eptr->name ) ) == 0 ) {
             if( ! eptr->marked( MARK ) ) {
                 // NOTE - this cond also returns TRUE if eptr did have an OR-
                 // MARK.  We don't want to remark now (since we're also trying

@@ -32,7 +32,7 @@ public:
         return newName;
     }
     int operator< ( SchRename & schrnm ) {
-        return ( strcmp( schName, schrnm.schName ) < 0 );
+        return ( entity_name_cmp( schName, schrnm.schName ) < 0 ); /* ??? SHOULD THIS BE entity_name_cmp ??? */
     }
     bool choice( const char * nm ) const;
     // is nm one of our possible choices?

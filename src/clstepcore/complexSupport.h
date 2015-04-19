@@ -96,10 +96,10 @@ class SC_CORE_EXPORT EntNode {
             return ( strcmp( name, ent.name ) == 0 );
         }
         bool operator< ( EntNode & ent ) {
-            return ( strcmp( name, ent.name ) < 0 );
+            return ( entity_name_cmp( name, ent.name ) < 0 );
         }
         bool operator> ( EntNode & ent ) {
-            return ( strcmp( name, ent.name ) > 0 );
+            return ( entity_name_cmp( name, ent.name ) > 0 );
         }
         EntNode & operator= ( EntNode & ent );
         void Name( const char * nm ) {
@@ -363,10 +363,10 @@ class SC_CORE_EXPORT ComplexList {
         void buildList();
         void remove();
         int operator< ( ComplexList & c ) {
-            return ( strcmp( supertype(), c.supertype() ) < 0 );
+            return ( entity_name_cmp( supertype(), c.supertype() ) < 0 );
         }
         int operator< ( char * name ) {
-            return ( strcmp( supertype(), name ) < 0 );
+            return ( entity_name_cmp( supertype(), name ) < 0 );
         }
         int operator== ( char * name ) {
             return ( strcmp( supertype(), name ) == 0 );

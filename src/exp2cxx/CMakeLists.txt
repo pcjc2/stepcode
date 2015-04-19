@@ -27,6 +27,7 @@ set(exp2cxx_SOURCES
   trynext.cc
   write.cc
   print.cc
+  Str.cc
   genCxxFilenames.c
   )
 
