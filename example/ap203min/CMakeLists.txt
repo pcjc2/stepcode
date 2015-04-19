@@ -31,13 +31,16 @@ set(SC_IS_SUBBUILD TRUE)
 if(NOT DEFINED CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug)
 endif(NOT DEFINED CMAKE_BUILD_TYPE)
-set(SC_BUILD_TYPE ${CMAKE_BUILD_TYPE})
+#set(SC_BUILD_TYPE ${CMAKE_BUILD_TYPE})
+set(CMAKE_BUILD_TYPE Debug)
+set(SC_BUILD_TYPE Debug)
 
 # Path to STEPcode
 set(STEPCODE_BUILD_DIR ${CMAKE_BINARY_DIR}/sc CACHE PATH "STEPcode build subdir")
 
 # STEP schema to build and link against.
-set(SCHEMA ap203)
+#set(SCHEMA ap203)
+set(SCHEMA ap214e3)
 set(SC_BUILD_SCHEMAS ${SCHEMA} CACHE INTERNAL "Schema, internal, immutable" FORCE)
 
 # Parse out schema name and library.
@@ -50,7 +53,8 @@ endif(NOT EXISTS ${SCHEMA_FILE})
 
 
 get_filename_component(SCHEMA_SN ${SCHEMA_FILE} NAME)
-string(REGEX REPLACE "\(.*\).[Ee][Xx][Pp]" "sdai_\\1" SCHEMA_LINK_NAME ${SCHEMA_SN})
+#string(REGEX REPLACE "\(.*\).[Ee][Xx][Pp]" "sdai_\\1" SCHEMA_LINK_NAME ${SCHEMA_SN})
+set(SCHEMA_LINK_NAME "sdai_ap214e3")
 set(STEPCODE_LIBRARIES base stepcore stepeditor stepdai steputils ${SCHEMA_LINK_NAME})
 
 # Add STEPCode project to CMake build.
@@ -77,14 +81,23 @@ include_directories(
   ${STEPCODE_INCLUDE_DIR}
  )
 
+## Application sources and headers
+#set(SRCS ap203min.cpp)
+#
+#set(HDRS )
+#
+#add_executable(${PROJECT_NAME} ${SRCS} ${HDRS})
+#
+#target_link_libraries(${PROJECT_NAME} ${STEPCODE_LIBRARIES})
+
 # Application sources and headers
-set(SRCS ap203min.cpp)
+set(SRCS ap214peter.cpp)
 
 set(HDRS )
 
-add_executable(${PROJECT_NAME} ${SRCS} ${HDRS})
+add_executable("petertest" ${SRCS} ${HDRS})
 
-target_link_libraries(${PROJECT_NAME} ${STEPCODE_LIBRARIES})
+target_link_libraries("petertest" ${STEPCODE_LIBRARIES})
 
 # Local Variables:
 # tab-width: 8
