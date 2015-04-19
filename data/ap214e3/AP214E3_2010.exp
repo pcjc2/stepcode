@@ -3475,13 +3475,11 @@ ENTITY contract_type;
 END_ENTITY; -- 10303-41: contract_schema
  
 ENTITY conversion_based_unit
-SUBTYPE OF (named_unit);
-  name : label;
-  conversion_factor : measure_with_unit;
-DERIVE
-  SELF\named_unit.dimensions : dimensional_exponents := 
-  derive_dimensional_exponents(conversion_factor\measure_with_unit.
-  unit_component);
+  SUBTYPE OF (named_unit);
+   name : label;
+   conversion_factor : measure_with_unit;
+WHERE
+  WR1: SELF\named_unit.dimensions = derive_dimensional_exponents(conversion_factor\measure_with_unit.unit_component);
 END_ENTITY; -- 10303-41: measure_schema
  
 ENTITY coordinated_universal_time_offset;
