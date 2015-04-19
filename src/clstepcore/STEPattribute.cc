@@ -958,10 +958,9 @@ void STEPattribute::Binary( SDAI_Binary * bin ) {
 
 void STEPattribute::Entity( SDAI_Application_instance * ent ) {
     assert( NonRefType() == ENTITY_TYPE );
-    if( ptr.c ) {
-        delete ptr.c;
+    if( ptr.c == NULL ) {
+        ptr.c = new (SDAI_Application_instance * );
     }
-    ptr.c = new (SDAI_Application_instance * );
     *( ptr.c ) = ent;
 }
 
