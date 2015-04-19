@@ -81,6 +81,10 @@ Registry::~Registry() {
     SC_HASHdestroy( active_types );
     delete col;
 
+/* NB: These are implemented as singletons, so we MUST NOT DELETE THEM!
+ *     Other registry objects may be relying on their continued existance
+ */
+#if 0
     if( t_sdaiINTEGER ) {
         delete t_sdaiINTEGER;
         t_sdaiINTEGER = NULL;
@@ -109,6 +113,7 @@ Registry::~Registry() {
         delete t_sdaiNUMBER;
         t_sdaiNUMBER = NULL;
     }
+#endif
 }
 
 void Registry::DeleteContents() {
