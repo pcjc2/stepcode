@@ -19,22 +19,35 @@
 **    helper functions for reading unknown types
 */
 
-Severity SCLundefined::StrToVal( const char * s, ErrorDescriptor * err ) {
+Severity SCLundefined::StrToVal( const char * s, ErrorDescriptor * err,
+                                 const TypeDescriptor * elem_type,
+                                 InstMgrBase * insts, int addFileId ) {
     (void) err; //unused
+    (void) elem_type; // unused
+    (void) insts; // unused
+    (void) addFileId; // unused
     val = s;
     return SEVERITY_NULL;
+// XXX: SHOULD WE PUSH THE STRING INTO A STREAM AND FEED TO STEPread???
 }
 
-Severity SCLundefined::StrToVal( istream & in, ErrorDescriptor * err ) {
-    return STEPread( in, err );
+Severity SCLundefined::StrToVal( istream & in, ErrorDescriptor * err,
+                                 const TypeDescriptor * elem_type,
+                                 InstMgrBase * insts, int addFileId ) {
+    return STEPread( in, err, elem_type, insts, addFileId );
 }
 
-Severity SCLundefined::STEPread( const char * s, ErrorDescriptor * err ) {
+Severity SCLundefined::STEPread( const char * s, ErrorDescriptor * err,
+                                 const TypeDescriptor * elem_type,
+                                 InstMgrBase * insts, int addFileId ) {
     istringstream in( ( char * ) s );
-    return STEPread( in, err );
+    return STEPread( in, err, elem_type, insts, addFileId );
 }
 
-Severity SCLundefined::STEPread( istream & in, ErrorDescriptor * err ) {
+Severity SCLundefined::STEPread( istream & in, ErrorDescriptor * err,
+                                 const TypeDescriptor * elem_type,
+                                 InstMgrBase * insts, int addFileId ) {
+    (void) elem_type; // unused
     char c = '\0';
     ostringstream ss;
     std::string str;
@@ -56,7 +69,7 @@ Severity SCLundefined::STEPread( istream & in, ErrorDescriptor * err ) {
             case '(':
                 in.putback( c );
 
-                PushPastImbedAggr( in, str, err );
+                PushPastImbedAggr( in, str, err, insts, addFileId );
                 ss << str;
                 break;
 
@@ -81,6 +94,12 @@ Severity SCLundefined::STEPread( istream & in, ErrorDescriptor * err ) {
             case '\0':
             case EOF:
                 terminal = 1; // found a valid delimiter
+                break;
+
+            case '#':
+                in.putback( c );
+                PushPastEntityRef( in, str, err, insts, addFileId );
+                ss << str;
                 break;
 
             default:

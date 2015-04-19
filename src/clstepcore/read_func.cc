@@ -462,11 +462,21 @@ void PushPastString( istream & in, std::string & s, ErrorDescriptor * err ) {
     s += GetLiteralStr( in, err );
 }
 
+// Kludge to adjust read in an entity reference whilst adjusting for file offset
+void PushPastEntityRef( istream & in, std::string & s, ErrorDescriptor * err, InstMgrBase *insts, int addFileId ) {
+    SDAI_Application_instance *se = ReadEntityRef( in, err, ",)", insts, addFileId );
+
+    stringstream ss;
+    ss << "#" << se->StepFileId();
+
+    s += ss.str();
+}
+
 /**
  * assign 's' so that it contains an exchange file format aggregate read from 'in'.
  * This is used to read aggregates that are part of multidimensional aggregates.
  */
-void PushPastImbedAggr( istream & in, std::string & s, ErrorDescriptor * err ) {
+void PushPastImbedAggr( istream & in, std::string & s, ErrorDescriptor * err, InstMgrBase *instances, int addFileId ) {
     char messageBuf[BUFSIZ];
     messageBuf[0] = '\0';
 
@@ -480,10 +490,13 @@ void PushPastImbedAggr( istream & in, std::string & s, ErrorDescriptor * err ) {
         while( in.good() && ( c != ')' ) ) {
             if( c == '(' ) {
                 in.putback( c );
-                PushPastImbedAggr( in, s, err );
+                PushPastImbedAggr( in, s, err, instances, addFileId );
             } else if( c == STRING_DELIM ) {
                 in.putback( c );
                 PushPastString( in, s, err );
+            } else if( c == '#' && instances != NULL) { /* XXX: Hack to skip whilst inside SkipSimpleRecord */
+                in.putback( c );
+                PushPastEntityRef( in, s, err, instances, addFileId );
             } else {
                 s += c;
             }
@@ -631,7 +644,7 @@ const char * SkipSimpleRecord( istream & in, std::string & buf, ErrorDescriptor 
             } else if( c == '(' ) {
                 in.putback( c );
                 s.clear();
-                PushPastImbedAggr( in, s, err );
+                PushPastImbedAggr( in, s, err, NULL, 0 ); /* XXX: DUMMY BUFFER ASSUMED, SO addFileId UNIMPORTANT */
                 buf.append( s.c_str() );
             } else {
                 buf += c;

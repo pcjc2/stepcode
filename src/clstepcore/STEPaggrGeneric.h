@@ -15,6 +15,14 @@
  */
 class SC_CORE_EXPORT GenericAggregate  :  public STEPaggregate {
 public:
+#if 1 /* Could we avoid adding this by extending the STEPnode instead */
+    virtual Severity ReadValue( istream & in, ErrorDescriptor * err,
+                                const TypeDescriptor * elem_type,
+                                InstMgrBase * insts, int addFileId = 0,
+                                int assignVal = 1, int ExchangeFileFormat = 1,
+                                const char * currSch = 0 );
+#endif
+
     virtual SingleLinkNode * NewNode();
     virtual STEPaggregate & ShallowCopy( const STEPaggregate & );
 
@@ -33,11 +41,19 @@ class SC_CORE_EXPORT GenericAggrNode  : public STEPnode {
 public:
     SCLundefined value;
     //  INPUT
-    virtual Severity StrToVal( const char * s, ErrorDescriptor * err );
-    virtual Severity StrToVal( istream & in, ErrorDescriptor * err );
+    virtual Severity StrToVal( const char * s, ErrorDescriptor * err,
+                               const TypeDescriptor * elem_type,
+                               InstMgrBase * insts, int addFileId = 0 );
+    virtual Severity StrToVal( istream & in, ErrorDescriptor * err,
+                               const TypeDescriptor * elem_type,
+                               InstMgrBase * insts, int addFileId = 0 );
 
-    virtual Severity STEPread( const char * s, ErrorDescriptor * err );
-    virtual Severity STEPread( istream & in, ErrorDescriptor * err );
+    virtual Severity STEPread( const char * s, ErrorDescriptor * err,
+                               const TypeDescriptor * elem_type,
+                               InstMgrBase * insts, int addFileId = 0 );
+    virtual Severity STEPread( istream & in, ErrorDescriptor * err,
+                               const TypeDescriptor * elem_type,
+                               InstMgrBase * insts, int addFileId = 0 );
 
     //  OUTPUT
     virtual const char * asStr( std::string & s );

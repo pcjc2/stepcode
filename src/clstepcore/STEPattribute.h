@@ -68,7 +68,9 @@ extern SC_CORE_EXPORT void AppendChar( char c, int & index, char *& s, int & sSi
 
 extern SC_CORE_EXPORT void PushPastString( istream & in, std::string & s, ErrorDescriptor * err );
 
-extern SC_CORE_EXPORT void PushPastImbedAggr( istream & in, std::string & s, ErrorDescriptor * err );
+extern SC_CORE_EXPORT void PushPastEntityRef( istream & in, std::string & s, ErrorDescriptor * err, InstMgrBase *instances, int addFileId );
+
+extern SC_CORE_EXPORT void PushPastImbedAggr( istream & in, std::string & s, ErrorDescriptor * err, InstMgrBase *instances, int addFileId );
 
 extern SC_CORE_EXPORT void PushPastAggr1Dim( istream & in, std::string & s, ErrorDescriptor * err );
 

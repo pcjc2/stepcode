@@ -23,11 +23,19 @@ class SC_CORE_EXPORT SCLundefined  {
 
     public:
 //  INPUT
-        virtual Severity StrToVal( const char * s, ErrorDescriptor * err );
-        virtual Severity StrToVal( istream & in, ErrorDescriptor * err );
+        virtual Severity StrToVal( const char * s, ErrorDescriptor * err,
+                                   const TypeDescriptor * elem_type,
+                                   InstMgrBase * insts, int addFileId );
+        virtual Severity StrToVal( istream & in, ErrorDescriptor * err,
+                                   const TypeDescriptor * elem_type,
+                                   InstMgrBase * insts, int addFileId );
 
-        virtual Severity STEPread( const char * s, ErrorDescriptor * err );
-        virtual Severity STEPread( istream & in, ErrorDescriptor * err );
+        virtual Severity STEPread( const char * s, ErrorDescriptor * err,
+                                   const TypeDescriptor * elem_type,
+                                   InstMgrBase * insts, int addFileId );
+        virtual Severity STEPread( istream & in, ErrorDescriptor * err,
+                                   const TypeDescriptor * elem_type,
+                                   InstMgrBase * insts, int addFileId );
 
 //  OUTPUT
         virtual const char * asStr( std::string & s ) const;
